@@ -1,0 +1,10 @@
+.panel-box {
+    display: flex;
+    display: -ms-flexbox;
+    marginBottom: "4rem";
+}
+
+.panel-box-body {
+    margin-top: 10px;
+    width: 90%;
+}

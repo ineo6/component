@@ -1,0 +1,4 @@
+.input-klass:focus{
+  border:none;
+  outline-color: #fff !important;
+}

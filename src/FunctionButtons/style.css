@@ -1,0 +1,61 @@
+.func-btns {
+    float: left;
+    padding: .5rem;
+    width: 7.5rem;
+}
+
+.func-btns button, .func-btns a {
+    padding: 0;
+    width: 6.5rem;
+    height: 2.5rem;
+    border: solid 1px #d5d5d5;
+    background-color: white;
+    color: #333;
+    margin-bottom: .5rem;
+}
+
+.func-btns button:hover, .func-btns a:hover, .func-btns .active {
+    background-color: #288fc6 !important;
+    color: white;
+}
+
+.func-btns a {
+    padding: 0.6rem;
+}
+
+.link-button {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    border-radius: 0;
+    border-style: solid;
+    border-width: 0;
+    cursor: pointer;
+    font-family: "Helvetica Neue", Helvetica, Roboto, Arial, sans-serif;
+    font-weight: normal;
+    line-height: normal;
+    margin: 0 0 1.25rem;
+    position: relative;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    padding: 1rem 2rem 1.0625rem 2rem;
+    font-size: 1rem;
+    background-color: #2ba6cb;
+    border-color: #2285a2;
+    color: #fff;
+    transition: background-color 300ms ease-out;
+}
+
+.panel-tool {
+    float: left;
+}
+
+.panel-content {
+    float: left;
+    width: 88%;
+    margin-top: 0.5rem;
+}
+
+.panel-tool .func-btns {
+    float: none;
+}

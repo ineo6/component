@@ -1,0 +1,54 @@
+.displayPanel-container{
+  width:100%;
+  min-width: 800px;
+  font-size: 14px;
+}
+
+.displayPanel-flex{
+  display: flex;
+}
+
+.displayPanel-title{
+  padding-left: 2%;
+  border-bottom: 1px solid #ebebeb;
+  font-size: 20px;
+  font-weight: bold;
+  height: 48px;
+  line-height: 48px;
+}
+
+.displayNone{
+  display: none;
+}
+
+.displayPanel-row{
+  margin: 30px 0;
+}
+
+.displayPanel-label{
+  width:10%;
+  min-width: 100px;
+  max-width: 160px;
+  text-align: right;
+
+}
+
+.displayPanel-noLabel{
+  width:4%;
+  min-width: 20px;
+  max-width: 70px;
+  text-align: right;
+
+}
+
+.displayPanel-content{
+  width:90%;
+  min-width: 700px;
+
+}
+
+.displayPanel-content2{
+  width:40%;
+  min-width: 300px;
+
+}

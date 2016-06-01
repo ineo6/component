@@ -1,0 +1,50 @@
+.colorBar-container{
+  border-radius: 6px;
+  position: relative;
+  width: 100%;
+  display: flex;
+  /*-webkit-animation:drawWidth 2s;
+          animation:drawWidth 2s;*/
+
+}
+.colorBar-height{
+  height: 17px;
+}
+.colorBar-vertical-center{
+  display: flex;
+  position: absolute;
+  height: 1em;
+  width: 100%;
+  top: 50%;
+  left: 0;
+  -webkit-transform: translateY(-50%);
+     -moz-transform: translateY(-50%);
+      -ms-transform: translateY(-50%);
+       -o-transform: translateY(-50%);
+          transform: translateY(-50%);
+}
+.colorBar-vertical-center > div:first-child > div:first-child{
+  border-top-left-radius: 6px;
+  border-bottom-left-radius: 6px;
+
+}
+
+.colorBar-vertical-center > div:last-child > div:last-child{
+  border-top-right-radius: 6px;
+  border-bottom-right-radius: 6px;
+
+}
+
+
+
+@keyframes drawWidth
+{
+from {width:0;}
+to {width:100%;}
+}
+
+@-webkit-keyframes drawWidth
+{
+from {left:0;}
+to {left:100%;}
+}

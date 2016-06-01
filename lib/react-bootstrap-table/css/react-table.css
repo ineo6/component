@@ -1,0 +1,262 @@
+.react-bs-container {
+    font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+    font-size: 16px;
+    line-height: 1.42857143;
+    color: #333;
+    clear: both;
+}
+.react-bs-container .react-bs-table-container {
+    border: 1px solid #dddddd;
+    border-bottom: none;
+}
+.react-bs-container .table-container {
+    border-bottom: 1px solid #dddddd;
+}
+.react-bs-container .table-container >table{
+    border-collapse:inherit;
+}
+.react-bs-container .table-container > table > tbody > tr > td{
+    line-height: 40px;
+}
+.table-bordered > thead > tr > th {
+    height: 40px;
+    background-color: #e0f2ff;
+    vertical-align: bottom;
+    border-right: 1px solid #ddd;
+}
+.table-bordered > thead > tr > th:last-child{
+    border-right: none;
+}
+.table-bordered > tbody > tr > td{
+    border: 1px solid #ddd;
+    border-top: none;
+    border-left: none;
+}
+.table-bordered > tbody > tr > td:last-child{
+    border-right: none;
+}
+.table-header-wrapper{
+    background-color: #e0f2ff;
+}
+
+.react-bs-container .table-hover>tbody>tr:hover {
+    background-color: #f5f5f5
+}
+
+.hidden {
+    display: none !important;
+    visibility: hidden !important;
+}
+.row {
+    width: 100%;
+    max-width: none;
+}
+.row::before {
+    display: table;
+    content: " ";
+}
+.row::after {
+    clear: both;
+}
+
+
+ul.pagination {
+    display: inline-block;
+    padding-left: 0;
+    margin: 0;
+    border-radius: 4px;
+}
+ul.pagination > li {
+    display: inline;
+    border: none;
+    margin: 0;
+}
+ul.pagination > li > a,ul.pagination > li > span {
+    position: relative;
+    float: left;
+    padding: 5px 13px;
+    margin-left: -1px;
+    line-height: 1.42857143;
+    color: #337ab7;
+    text-decoration: none;
+    background-color: #fff;
+    border: 1px solid #ddd;
+}
+ul.pagination > li:first-child > a, ul.pagination > li:first-child > span {
+    margin-left: 0;
+    border-top-left-radius: 4px;
+    border-bottom-left-radius: 4px;
+}
+ul.pagination > li:last-child > a, ul.pagination > li:last-child > span {
+    border-top-right-radius: 4px;
+    border-bottom-right-radius: 4px;
+}
+ul.pagination > .disabled > a, ul.pagination > .disabled > a:focus, ul.pagination > .disabled > a:hover, ul.pagination > .disabled > span, ul.pagination > .disabled > span:focus, ul.pagination > .disabled > span:hover {
+    color: #777;
+    cursor: not-allowed;
+    background-color: #fff;
+    border-color: #ddd;
+}
+ul.pagination > .active > a, ul.pagination > .active > a:focus, ul.pagination > .active > a:hover, ul.pagination > .active > span, ul.pagination > .active > span:focus, ul.pagination > .active > span:hover {
+    z-index: 2;
+    color: #fff;
+    cursor: default;
+    background-color: #337ab7;
+    border-color: #337ab7;
+}
+
+
+
+.react-bs-container .btn {
+    padding: 0.75rem 1rem;
+}
+.react-bs-container .btn-default {
+    color: #333;
+    background-color: #fff;
+    border-color: #ccc;
+}
+.react-bs-container .btn {
+    display: inline-block;
+    margin-bottom: 0;
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 1.42857143;
+    text-align: center;
+    white-space: nowrap;
+    vertical-align: middle;
+    -ms-touch-action: manipulation;
+    touch-action: manipulation;
+    cursor: pointer;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    background-image: none;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+.react-bs-container .btn .caret {
+    margin-left: 0;
+}
+.react-bs-container .caret {
+    display: inline-block;
+    width: 0;
+    height: 0;
+    margin-left: 2px;
+    vertical-align: middle;
+    border-top: 4px solid;
+    border-right: 4px solid transparent;
+    border-left: 4px solid transparent;
+}
+.react-bs-container .dropup .caret,.react-bs-container  .navbar-fixed-bottom .dropdown .caret {
+    content: "";
+    border-top: 0;
+    border-bottom: 4px solid;
+}
+.btn-default.active, .btn-default.focus, .btn-default:active, .btn-default:focus, .btn-default:hover, .open > .dropdown-toggle.btn-default {
+    color: #333;
+    background-color: #e6e6e6;
+    border-color: #adadad;
+}
+.btn.focus, .btn:focus, .btn:hover {
+    color: #333;
+    text-decoration: none;
+}
+.btn.active.focus, .btn.active:focus, .btn.focus, .btn.focus:active, .btn:active:focus, .btn:focus {
+    outline: 5px auto -webkit-focus-ring-color;
+    outline-offset: -2px;
+}
+.table-footer-pagination .dropdown, .dropup {
+    position: relative;
+    display: inline-block;
+}
+.table-footer-pagination .dropdown-toggle:focus {
+    outline: 0;
+}
+.table-footer-pagination .dropdown-menu {
+    position: absolute;
+    bottom:36px;
+    left: 0;
+    z-index: 1000;
+    display: none;
+    float: left;
+    min-width: 160px;
+    padding: 5px 0;
+    margin: 2px 0 0;
+    font-size: 14px;
+    text-align: left;
+    list-style: none;
+    background-color: #fff;
+    -webkit-background-clip: padding-box;
+    background-clip: padding-box;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    -webkit-box-shadow: 0 6px 12px rgba(0,0,0,.175);
+    box-shadow: 0 6px 12px rgba(0,0,0,.175);
+}
+.btn-default.active, .btn-default:active, .open > .dropdown-toggle.btn-default {
+    background-image: none;
+}
+.btn-default.active, .btn-default.focus, .btn-default:active, .btn-default:focus, .btn-default:hover, .open > .dropdown-toggle.btn-default {
+    color: #333;
+    background-color: #e6e6e6;
+    border-color: #adadad;
+}
+.table-footer-pagination .open > .dropdown-menu {
+    display: block;
+}
+.btn-default.active, .btn-default.focus, .btn-default:active, .btn-default:focus, .btn-default:hover, .open > .dropdown-toggle.btn-default {
+    color: #333;
+}
+.table-footer-pagination .dropdown-menu > li > a {
+    display: block;
+    padding: 3px 20px;
+    clear: both;
+    font-weight: 400;
+    line-height: 1.42857143;
+    color: #333;
+    white-space: nowrap;
+}
+.table-footer-pagination .dropup button,.table-footer-pagination .dropdown button{
+    padding: 6px 12px;
+}
+.paginationDesc{
+    display: inline-block;
+    float: right;
+    margin:0 10px;
+    font-size: 14px;
+    line-height: 32px;
+    height:32px;
+}
+.paginationDesc  .totalPages,.paginationDesc .gotoPage,.paginationDesc .gotoPageBtn,.paginationDesc .gotoPage> input{
+    display: inline-block;
+    line-height: 32px;
+    height:32px;
+    vertical-align: top;
+    margin: 0;
+}
+.paginationDesc .gotoPage{
+    margin:0 10px 0 20px;
+}
+.paginationDesc .gotoPageBtn,.paginationDesc .gotoPage > input{
+    width: 54px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 14px;
+    font-weight: 400;
+    text-align: center;
+    color: black;
+}
+.paginationDesc .gotoPageBtn:hover{
+    color: #333;
+    background-color: #e6e6e6;
+    border-color: #adadad;
+}
+
+
+.react-bs-table-container input[type="checkbox"],.react-bs-table-container input[type="radio"]{
+    margin: 0 0 8px 8px;
+}
+.react-bs-table-container .table-header-wrapper .table-header .table th{
+    text-align: left;
+}

@@ -1,0 +1,262 @@
+.kuma-message {
+    top: 30%;
+    position: fixed;
+    z-index: 1000;
+    max-width: 300px;
+}
+
+.kuma-message-content {
+    padding-left: 34px;
+    font-size: 14px;
+}
+
+.kuma-message-notice {
+    padding: 10px 20px 10px 10px;
+    border-radius: 3px 3px;
+    border: 1px solid #999;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+    border: 0px solid rgba(0, 0, 0, 0);
+    background: #fff;
+    display: block;
+    width: auto;
+    line-height: 1.5;
+    vertical-align: middle;
+    position: relative;
+    margin: 10px 0;
+}
+
+.kuma-message-notice-closable {
+    padding-right: 20px;
+}
+
+.kuma-message-notice-close {
+    position: absolute;
+    right: 5px;
+    top: 3px;
+    color: #000;
+    cursor: pointer;
+    outline: none;
+    font-size: 16px;
+    font-weight: 700;
+    line-height: 1;
+    text-shadow: 0 1px 0 #fff;
+    filter: alpha(opacity=20);
+    opacity: .2;
+    text-decoration: none;
+}
+
+.kuma-message-notice-close-x:after {
+    content: '×';
+}
+
+.kuma-message-notice-close:hover {
+    opacity: 1;
+    filter: alpha(opacity=100);
+    text-decoration: none;
+}
+
+.kuma-message .kuma-icon {
+    font-size: 24px;
+    margin-right: 10px;
+    line-height: 1;
+    float: left;
+    vertical-align: middle;
+}
+
+.kuma-message .kuma-icon.kuma-icon-caution {
+    color: #ff974d;
+}
+
+.kuma-message .kuma-icon.kuma-icon-information {
+    color: #ff9900;
+}
+
+.kuma-message .kuma-icon.kuma-icon-success {
+    color: #95ed5e;
+}
+
+.kuma-message .kuma-icon.kuma-icon-error {
+    color: #ed6f5e;
+}
+
+.kuma-message .kuma-loading {
+    float: left;
+}
+
+.kuma-message-fade-enter {
+    opacity: 0;
+    animation-duration: 0.3s;
+    animation-fill-mode: both;
+    animation-timing-function: cubic-bezier(0.55, 0, 0.55, 0.2);
+    animation-play-state: paused;
+}
+
+.kuma-message-fade-leave {
+    animation-duration: 0.3s;
+    animation-fill-mode: both;
+    animation-timing-function: cubic-bezier(0.55, 0, 0.55, 0.2);
+    animation-play-state: paused;
+}
+
+.kuma-message-fade-enter.kuma-message-fade-enter-active {
+    animation-name: rcNotificationFadeIn;
+    animation-play-state: running;
+}
+
+.kuma-message-fade-leave.kuma-message-fade-leave-active {
+    animation-name: rcDialogFadeOut;
+    animation-play-state: running;
+}
+
+@keyframes rcNotificationFadeIn {
+    0% {
+        opacity: 0;
+    }
+    100% {
+        opacity: 1;
+    }
+}
+
+@keyframes rcDialogFadeOut {
+    0% {
+        opacity: 1;
+    }
+    100% {
+        opacity: 0;
+    }
+}
+
+/*===*/
+
+.mask-message {
+    top: 35%;
+    position: fixed;
+    z-index: 1060;
+    max-width: 300px;
+}
+
+.mask-message-content {
+    color: #575757;
+    font-size: 30px;
+    text-align: center;
+    font-weight: 600;
+    text-transform: none;
+    position: relative;
+
+    word-wrap: break-word;
+    word-break: normal;
+}
+
+p.mask-message-content {
+    /*overflow: hidden;*/
+    /*text-overflow: ellipsis;*/
+    /*display: -webkit-box;*/
+    /*-webkit-line-clamp: 3;*/
+    /*-webkit-box-orient: vertical;*/
+}
+
+.mask-message-notice {
+    position: absolute;
+    top: 35%;
+    bottom: 0;
+    left: 50%;
+    right: 0;
+    margin-left: -230px;
+    color: #1a1d1d;
+    text-align: center;
+    height: 260px;
+    width: 460px;
+    background: white;
+    border: 1px solid #ddd;
+    z-index: 500000;
+    border-radius: 10px;
+}
+
+.mask-message-icon {
+    width: 80px;
+    height: 80px;
+    margin: 20px auto;
+    position: relative;
+    box-sizing: content-box;
+}
+
+.mask-message-notice-closable {
+    padding-right: 20px;
+}
+
+.mask-message-notice-close {
+    position: absolute;
+    right: 5px;
+    top: 3px;
+    color: #000;
+    cursor: pointer;
+    outline: none;
+    font-size: 16px;
+    font-weight: 700;
+    line-height: 1;
+    text-shadow: 0 1px 0 #fff;
+    filter: alpha(opacity=20);
+    opacity: .2;
+    text-decoration: none;
+}
+
+.mask-message-notice-close-x:after {
+    content: '×';
+}
+
+.mask-message-notice-close:hover {
+    opacity: 1;
+    filter: alpha(opacity=100);
+    text-decoration: none;
+}
+
+.mask-message .kuma-icon {
+    font-size: 4rem;
+    line-height: 1;
+    vertical-align: middle;
+}
+
+.mask-message .kuma-icon.kuma-icon-caution {
+    color: #ff974d;
+}
+
+.mask-message .kuma-icon.kuma-icon-information {
+    color: #ff9900;
+}
+
+.mask-message .kuma-icon.kuma-icon-success {
+    color: #95ed5e;
+}
+
+.mask-message .kuma-icon.kuma-icon-error {
+    color: #ed6f5e;
+}
+
+.mask-message .mask-loading {
+    float: left;
+}
+
+.mask-message-fade-enter {
+    opacity: 0;
+    animation-duration: 0.3s;
+    animation-fill-mode: both;
+    animation-timing-function: cubic-bezier(0.55, 0, 0.55, 0.2);
+    animation-play-state: paused;
+}
+
+.mask-message-fade-leave {
+    animation-duration: 0.3s;
+    animation-fill-mode: both;
+    animation-timing-function: cubic-bezier(0.55, 0, 0.55, 0.2);
+    animation-play-state: paused;
+}
+
+.mask-message-fade-enter.mask-message-fade-enter-active {
+    animation-name: rcNotificationFadeIn;
+    animation-play-state: running;
+}
+
+.mask-message-fade-leave.mask-message-fade-leave-active {
+    animation-name: rcDialogFadeOut;
+    animation-play-state: running;
+}
