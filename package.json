@@ -8,6 +8,9 @@
     "prepublish": "npm run build",
     "demo": "webpack-dev-server --port 8099 --devtool source-map --progress --colors --hot --inline --config webpack.demo.config.js"
   },
+  "files": [
+    "lib"
+  ],
   "author": "tim",
   "license": "MIT",
   "dependencies": {
