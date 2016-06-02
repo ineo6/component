@@ -1,3 +1,44 @@
+.upload-input-container{
+  border: 1px dashed #d9d9d9;
+  width: 96px;
+  height: 96px;
+  padding: 24px 0;
+  border-radius: 6px;
+  background-color: #fbfbfb;
+  text-align: center;
+  cursor: pointer;
+  -webkit-transition: border-color .3s ease;
+  transition: border-color .3s ease;
+  display: inline-block;
+  vertical-align: top;
+  margin: 0 8px 8px 0px;
+}
+
+.upload-input-container:hover{
+  border-color: #2db7f5;
+}
+.upload-input-container-a i {
+    font-size: 28px;
+    color: #999;
+}
+
+.upload-input-container .ant-upload-text {
+    margin-top: 8px;
+    font-size: 12px;
+    color: #666;
+}
+.upload-input-container:focus{
+  border:none;
+  outline-color: #fff !important;
+}
+
+.upload-input-container>span {
+    display: block;
+    width: 100%;
+    outline: none;
+}
+
+
 .input-klass:focus{
   border:none;
   outline-color: #fff !important;

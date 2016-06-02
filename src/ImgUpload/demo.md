@@ -1,6 +1,30 @@
 以下是简单的示例
 
 多文件的上传, 带有文件列表的
+
+```` jsx
+import { ImgUpload }  from 'component';
+const MultiImgUpload = ImgUpload.MultiImgUpload;
+
+
+<div>
+ <MultiImgUpload ref = 'imgUpload' />
+</div>
+
+
+const images = this.refs.imgUpload.getAllFile();
+var param = new FormData();
+if (images && images.length > 0)
+   images.map(function (image) {
+       param.append("images", image);
+   });
+else
+   param.append("images", "");
+
+
+````
+
+自定义多文件的上传, 带有文件列表的
 ```` css
 .upload-input-container{
   border: 1px dashed #d9d9d9;
@@ -44,6 +68,7 @@
 ````
 ```` jsx
 import { ImgUpload }  from 'component';
+import { Icon } from 'antd';
 
 <ImgUpload ref='imgUpload' onChange={(file)=>console.log(file)} >
    <div className = 'upload-input-container'>
