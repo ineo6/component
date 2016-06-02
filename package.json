@@ -14,7 +14,7 @@
   "author": "tim",
   "license": "MIT",
   "dependencies": {
-    "react-cropper": "^0.8.0",
+    "react-cropper": "^0.8.0"
   },
   "peerDependencies": {
     "react": "^0.14.2",
