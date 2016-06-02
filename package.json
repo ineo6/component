@@ -1,5 +1,5 @@
 {
-  "name": "u-components",
+  "name": "component",
   "version": "0.0.1",
   "description": "react components for projects",
   "main": "./lib/index.js",
