@@ -12,11 +12,11 @@ class PaginationList extends React.Component {
   }
 
   componentWillReceiveProps(nextProps) {
-      if(nextProps.currPage!=this.state.searchPage)
-          this.setState({searchPage:nextProps.currPage})
+    if(nextProps.currPage!=this.state.searchPage)
+      this.setState({searchPage:nextProps.currPage})
   }
 
-    componentDidMount() {
+  componentDidMount() {
     document.addEventListener('click', this.documentClick);
   }
 
@@ -82,7 +82,7 @@ class PaginationList extends React.Component {
       parentDom.className = "dropup";
     }else{
       currentDom.setAttribute("aria-expanded",true);
-      parentDom.className = "dropdown open";
+      parentDom.className = "dropup open";
     }
   }
   documentClick =(e)=>{
@@ -103,44 +103,44 @@ class PaginationList extends React.Component {
 
     var sizePerPageList = this.props.sizePerPageList.map((sizePerPage) => {
       return (
-        <li key={sizePerPage} role="presentation">
-          <a role="menuitem" tabIndex="-1" href="#" onClick={this.changeSizePerPage.bind(this)}>{sizePerPage}</a>
-        </li>
+          <li key={sizePerPage} role="presentation">
+            <a role="menuitem" tabIndex="-1" href="#" onClick={this.changeSizePerPage.bind(this)}>{sizePerPage}</a>
+          </li>
       );
     });
 
     return (
-      <div className="row" style={{ marginTop: 15 }}>
-        {
-          this.props.sizePerPageList.length > 1
-          ? <div>
-                  <div className="dropup" id="paginationDropDown">
-                    <button ref="pageDropDown" className="btn btn-default dropdown-toggle" type="button" id="pageDropDown" data-toggle="dropdown" aria-expanded="false" onClick={this.pageDropHandle.bind(this)}>
-                      {this.props.sizePerPage}
+        <div style={{ marginTop: 15 }}>
+          {
+            this.props.sizePerPageList.length > 1
+                ? <div>
+              <div className="dropup" id="paginationDropDown">
+                <button ref="pageDropDown" className="btn btn-default dropup-toggle" type="button" id="pageDropDown" data-toggle="dropdown" aria-expanded="false" onClick={this.pageDropHandle.bind(this)}>
+                  {this.props.sizePerPage}
                       <span>
                         {" "}
                         <span className="caret"/>
                       </span>
-                    </button>
-                    <ul className="dropdown-menu" role="menu" aria-labelledby="pageDropDown">
-                      {sizePerPageList}
-                    </ul>
-                  </div>
-                  <div className="paginationDesc">
-                    <span className="gotoPage">转到 <input value={this.state.searchPage} onChange={this.gotoPageHandle.bind(this)}/> / {this.totalPages}   页</span>
-                    <a href="javascript:void(0)" className="gotoPageBtn" onClick={this.changePage.bind(this,this.state.searchPage)}>Go</a>
-                  </div>
-                  <ul className="pagination" style={pageListStyle}>
-                    {pageBtns}
-                  </ul>
+                </button>
+                <ul className="dropup-menu" role="menu" aria-labelledby="pageDropDown">
+                  {sizePerPageList}
+                </ul>
               </div>
-          : <div>
+              <div className="paginationDesc">
+                <span className="gotoPage">转到 <input value={this.state.searchPage} onChange={this.gotoPageHandle.bind(this)}/> / {this.totalPages}   页</span>
+                <a href="javascript:void(0)" className="gotoPageBtn" onClick={this.changePage.bind(this,this.state.searchPage)}>Go</a>
+              </div>
               <ul className="pagination" style={pageListStyle}>
                 {pageBtns}
               </ul>
             </div>
-        }
-      </div>
+                : <div>
+              <ul className="pagination" style={pageListStyle}>
+                {pageBtns}
+              </ul>
+            </div>
+          }
+        </div>
     )
   }
 
@@ -151,17 +151,17 @@ class PaginationList extends React.Component {
       var disabled = false;
       var hidden = false;
       if(this.props.currPage == 1 &&
-        (page === this.props.firstPage || page === this.props.prePage)){
-          disabled = true;
-          hidden = true;
+          (page === this.props.firstPage || page === this.props.prePage)){
+        disabled = true;
+        hidden = true;
       }
       if(this.props.currPage == this.totalPages &&
-        (page === this.props.nextPage || page === this.props.lastPage)){
-          disabled = true;
-          hidden = true;
+          (page === this.props.nextPage || page === this.props.lastPage)){
+        disabled = true;
+        hidden = true;
       }
       return (
-        <PageButton changePage={this.changePage.bind(this)} active={isActive} disable={disabled} hidden={hidden} key={page}>{page}</PageButton>
+          <PageButton changePage={this.changePage.bind(this)} active={isActive} disable={disabled} hidden={hidden} key={page}>{page}</PageButton>
       )
     }, this);
   }

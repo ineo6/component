@@ -16,3 +16,4 @@ export CheckBoxList from './CheckBoxList';
 export HelpTips from './HelpTips';
 export Gallery from './Gallery';
 export ImgUpload from './ImgUpload';
+export Util from './Util';

@@ -1,16 +1,15 @@
-import React from 'react';
+import React, { Component, PropTypes } from 'react';
 import Const from './Const';
-import Util from './util';
 import TableRow from './TableRow';
 import TableColumn from './TableColumn';
 import TableEditColumn from './TableEditColumn';
 import classSet from 'classnames';
 
-var isFun=function(obj){
-  return obj&&(typeof obj==="function");
-
+const isFun = function(obj) {
+  return obj && (typeof obj === 'function');
 };
-class TableBody extends React.Component{
+
+class TableBody extends Component {
 
   constructor(props) {
     super(props);
@@ -20,304 +19,274 @@ class TableBody extends React.Component{
     this.editing = false;
   }
 
-  componentDidMount(){
-    this.adjustBody();
-  }
-
-  componentDidUpdate(){
-    this.adjustBody();
-  }
-
-  render(){
-    var containerClasses = classSet("table-container");
-
-    var tableClasses = classSet("table", {
+  render() {
+    const tableClasses = classSet('table', {
       'table-striped': this.props.striped,
       'table-bordered': this.props.bordered,
       'table-hover': this.props.hover,
-      'table-condensed': this.props.condensed
-    });
+      'table-condensed': this.props.condensed,
+      'table-wrap': this.props.wrap
+    }, this.props.tableBodyClass);
 
-    var isSelectRowDefined = this._isSelectRowDefined();
-    var tableHeader = this.renderTableHeader(isSelectRowDefined);
+    const isSelectRowDefined = this._isSelectRowDefined();
+    const tableHeader = this.renderTableHeader(isSelectRowDefined);
 
-    var tableRows = this.props.data.map(function(data, r){
-      var tableColumns = this.props.columns.map(function(column, i){
-        var fieldValue = data[column.name];
-        if(this.editing &&
+    const tableRows = this.props.data.map(function(data, r) {
+      const tableColumns = this.props.columns.map(function(column, i) {
+        const fieldValue = data[column.name];
+        if (this.editing &&
           column.name !== this.props.keyField && // Key field can't be edit
           column.editable && // column is editable? default is true, user can set it false
-          this.state.currEditCell != null &&
-          this.state.currEditCell.rid == r &&
-          this.state.currEditCell.cid == i){
-            var format=column.format?function(value){
-              return column.format(value, data, column.formatExtraData).replace(/<.*?>/g,'');
-            }:false;
-
-          return(
-              <TableEditColumn completeEdit={this.handleCompleteEditCell.bind(this)}
-                               //add by bluespring for column editor customize
-                               editable={isFun(column.editable)?column.editable(fieldValue,data,r,i):column.editable}
-                               format={column.format?format:false}
-                               key={i}
-                               blurToSave={this.props.cellEdit.blurToSave}
-                               rowIndex={r}
-                               colIndex={i}>
-                {fieldValue}
-              </TableEditColumn>
-            )
-        } else{
-          //add by bluespring for className customize
-          var tdClassName=isFun(column.className)?column.className(fieldValue,data,r,i):column.className;
-
-          if(typeof column.format !== "undefined"){
-            var formattedValue = column.format(fieldValue, data, column.formatExtraData);
-            if (!React.isValidElement(formattedValue)) {
-              formattedValue = <div dangerouslySetInnerHTML={{__html: formattedValue}}></div>;
-            }
-            return(
-              <TableColumn dataAlign={column.align}
-                           key={i}
-                           className={tdClassName}
-                           cellEdit={this.props.cellEdit}
-                           hidden={column.hidden}
-                           onEdit={this.handleEditCell.bind(this)}
-                           width={column.width}>
-                {formattedValue}
-              </TableColumn>
-            )
-          } else{
-            return(
-              <TableColumn dataAlign={column.align}
-                           key={i}
-                           className={tdClassName}
-                           cellEdit={this.props.cellEdit}
-                           hidden={column.hidden}
-                           onEdit={this.handleEditCell.bind(this)}
-                           width={column.width}>
-                {fieldValue}
-              </TableColumn>
-            )
+          this.state.currEditCell !== null &&
+          this.state.currEditCell.rid === r &&
+          this.state.currEditCell.cid === i) {
+          let editable = column.editable;
+          const format = column.format ? function(value) {
+            return column.format(value, data, column.formatExtraData).replace(/<.*?>/g, '');
+          } : false;
+          if (isFun(column.editable)) {
+            editable = column.editable(fieldValue, data, r, i);
           }
+
+          return (
+              <TableEditColumn
+                completeEdit={ this.handleCompleteEditCell }
+                // add by bluespring for column editor customize
+                editable={ editable }
+                format={ column.format ? format : false }
+                key={ i }
+                blurToSave={ this.props.cellEdit.blurToSave }
+                rowIndex={ r }
+                colIndex={ i }>
+                { fieldValue }
+              </TableEditColumn>
+            );
+        } else {
+          // add by bluespring for className customize
+          let columnChild = fieldValue;
+          let columnTitle = null;
+          let tdClassName = column.className;
+          if (isFun(column.className)) {
+            tdClassName = column.className(fieldValue, data, r, i);
+          }
+
+          if (typeof column.format !== 'undefined') {
+            const formattedValue = column.format(fieldValue, data, column.formatExtraData);
+            if (!React.isValidElement(formattedValue)) {
+              columnChild = (
+                <div dangerouslySetInnerHTML={ { __html: formattedValue } }></div>
+              );
+            } else {
+              columnChild = formattedValue;
+              columnTitle = column.columnTitle ? formattedValue.toString() : null;
+            }
+          } else {
+            columnTitle = column.columnTitle ? fieldValue.toString() : null;
+          }
+          return (
+            <TableColumn key={ i }
+              dataAlign={ column.align }
+              className={ tdClassName }
+              columnTitle={ columnTitle }
+              cellEdit={ this.props.cellEdit }
+              hidden={ column.hidden }
+              onEdit={ this.handleEditCell }
+              width={ column.width }>
+              { columnChild }
+            </TableColumn>
+          );
         }
       }, this);
-      var selected = this.props.selectedRowKeys.indexOf(data[this.props.keyField]) != -1;
-      var selectRowColumn = isSelectRowDefined && !this.props.selectRow.hideSelectColumn?
-                              this.renderSelectRowColumn(selected):null;
-      //add by bluespring for className customize
-      var trClassName=isFun(this.props.trClassName)?this.props.trClassName(data,r):this.props.trClassName;
+
+      const selected = this.props.selectedRowKeys.indexOf(data[this.props.keyField]) !== -1;
+      const selectRowColumn = isSelectRowDefined && !this.props.selectRow.hideSelectColumn ?
+                              this.renderSelectRowColumn(selected) : null;
+      // add by bluespring for className customize
+      let trClassName = this.props.trClassName;
+      if (isFun(this.props.trClassName)) {
+        trClassName = this.props.trClassName(data, r);
+      }
       return (
-        <TableRow isSelected={selected} key={r} className={trClassName}
-          selectRow={isSelectRowDefined?this.props.selectRow:undefined}
-          enableCellEdit={this.props.cellEdit.mode !== Const.CELL_EDIT_NONE}
-          onRowClick={this.handleRowClick.bind(this)}
-          onRowMouseOver={this.handleRowMouseOver.bind(this)}
-          onRowMouseOut={this.handleRowMouseOut.bind(this)}
-          onSelectRow={this.handleSelectRow.bind(this)}>
-          {selectRowColumn}
-          {tableColumns}
+        <TableRow isSelected={ selected } key={ r } className={ trClassName }
+          selectRow={ isSelectRowDefined ? this.props.selectRow : undefined }
+          enableCellEdit={ this.props.cellEdit.mode !== Const.CELL_EDIT_NONE }
+          onRowClick={ this.handleRowClick }
+          onRowMouseOver={ this.handleRowMouseOver }
+          onRowMouseOut={ this.handleRowMouseOut }
+          onSelectRow={ this.handleSelectRow }>
+          { selectRowColumn }
+          { tableColumns }
         </TableRow>
-      )
+      );
     }, this);
 
-    if(tableRows.length === 0){
+    if (tableRows.length === 0) {
       tableRows.push(
-      <TableRow key="##table-empty##">
-        <td colSpan={this.props.columns.length+(isSelectRowDefined?1:0)}
-            className="react-bs-table-no-data">
-            {this.props.noDataText||Const.NO_DATA_TEXT}
-        </td>
-      </TableRow>);
+        <TableRow key='##table-empty##'>
+          <td colSpan={ this.props.columns.length + (isSelectRowDefined ? 1 : 0) }
+              className='react-bs-table-no-data'>
+              { this.props.noDataText || Const.NO_DATA_TEXT }
+          </td>
+        </TableRow>
+      );
     }
 
     this.editing = false;
 
-    var height = this.calculateContainerHeight().toString();
-
-    return(
-      <div ref="container" className={containerClasses} style={{height: height}}>
-        <table ref="body" className={tableClasses}>
-          {tableHeader}
-          <tbody>
-            {tableRows}
+    return (
+      <div ref='container' className='react-bs-container-body' style={ this.props.style }>
+        <table className={ tableClasses }>
+          { tableHeader }
+          <tbody ref='tbody'>
+            { tableRows }
           </tbody>
         </table>
       </div>
-    )
+    );
   }
 
-  renderTableHeader(isSelectRowDefined){
-    var selectRowHeader = null;
+  renderTableHeader(isSelectRowDefined) {
+    let selectRowHeader = null;
 
-    if(isSelectRowDefined){
-      let style = {
-        width:35,
-        minWidth:35
-      }
-      selectRowHeader = this.props.selectRow.hideSelectColumn?null:(<th style={style} key={-1}></th>);
-    }
-    var theader = this.props.columns.map(function(column, i){
-      let width = column.width == null?column.width:parseInt(column.width);
-      let style={
-        display: column.hidden?"none":null,
-        width: width,
-        maxWidth: width
-        /** add min-wdth to fix user assign column width not eq offsetWidth in large column table **/
+    if (isSelectRowDefined) {
+      const style = {
+        width: 30,
+        minWidth: 30
       };
-      let sortCaert = column.sort?(Util.renderReactSortCaret(Const.SORT_DESC)):null;
-      return (
-          <th style={style} key={i} className={column.className}>
-            {column.text}
-            {sortCaert}
-          </th>);
+      if (!this.props.selectRow.hideSelectColumn) {
+        selectRowHeader = (<col style={ style } key={ -1 }></col>);
+      }
+    }
+    const theader = this.props.columns.map(function(column, i) {
+      const style = {
+        display: column.hidden ? 'none' : null
+      };
+      if (column.width) {
+        const width = parseInt(column.width, 10);
+        style.width = width;
+        /** add min-wdth to fix user assign column width
+        not eq offsetWidth in large column table **/
+        style.minWidth = width;
+      }
+      return (<col style={ style } key={ i } className={ column.className }></col>);
     });
 
-    return(
-      <thead ref="header">
-        <tr>
-          {selectRowHeader}
-          {theader}
-        </tr>
-      </thead>
-    )
+    return (
+      <colgroup ref='header'>
+        { selectRowHeader }{ theader }
+      </colgroup>
+    );
   }
 
-  handleRowMouseOut(rowIndex){
-    const targetRow = this.props.data[rowIndex-1];
-    this.props.onRowMouseOut(targetRow);
+  handleRowMouseOut = (rowIndex, event) => {
+    const targetRow = this.props.data[rowIndex];
+    this.props.onRowMouseOut(targetRow, event);
   }
 
-  handleRowMouseOver(rowIndex){
-    const targetRow = this.props.data[rowIndex-1];
-    this.props.onRowMouseOver(targetRow);
+  handleRowMouseOver = (rowIndex, event) => {
+    const targetRow = this.props.data[rowIndex];
+    this.props.onRowMouseOver(targetRow, event);
   }
 
-  handleRowClick(rowIndex){
-    var key, selectedRow;
-    this.props.data.forEach(function(row, i){
-      if(i == rowIndex-1){
-        key = row[this.props.keyField];
+  handleRowClick = rowIndex => {
+    let selectedRow;
+    const { data, onRowClick } = this.props;
+    data.forEach((row, i) => {
+      if (i === rowIndex - 1) {
         selectedRow = row;
       }
-    }, this);
-    this.props.onRowClick(selectedRow);
+    });
+    onRowClick(selectedRow);
   }
 
-  handleSelectRow(rowIndex, isSelected){
-    var key, selectedRow;
-    this.props.data.forEach(function(row, i){
-      if(i == rowIndex-1){
-        key = row[this.props.keyField];
+  handleSelectRow = (rowIndex, isSelected, e) => {
+    let selectedRow;
+    const { data, onSelectRow } = this.props;
+    data.forEach((row, i) => {
+      if (i === rowIndex - 1) {
         selectedRow = row;
         return false;
       }
-    }, this);
-    this.props.onSelectRow(selectedRow, isSelected);
+    });
+    onSelectRow(selectedRow, isSelected, e);
   }
 
-  handleSelectRowColumChange(e){
-    if(!this.props.selectRow.clickToSelect || !this.props.selectRow.clickToSelectAndEditCell){
+  handleSelectRowColumChange = e => {
+    if (!this.props.selectRow.clickToSelect ||
+      !this.props.selectRow.clickToSelectAndEditCell) {
       this.handleSelectRow(
-        e.currentTarget.parentElement.parentElement.rowIndex, e.currentTarget.checked);
+        e.currentTarget.parentElement.parentElement.rowIndex + 1,
+        e.currentTarget.checked,
+        e);
     }
   }
 
-  handleEditCell(rowIndex, columnIndex){
+  handleEditCell = (rowIndex, columnIndex, e) => {
     this.editing = true;
-    if(this._isSelectRowDefined()){
+    if (this._isSelectRowDefined()) {
       columnIndex--;
-      if(this.props.selectRow.hideSelectColumn)
-        columnIndex++;
+      if (this.props.selectRow.hideSelectColumn) columnIndex++;
     }
     rowIndex--;
-    var stateObj = {
+    const stateObj = {
       currEditCell: {
         rid: rowIndex,
         cid: columnIndex
       }
     };
 
-    if(this.props.selectRow.clickToSelectAndEditCell){
-      this.handleSelectRow(rowIndex+1, true);
+    if (this.props.selectRow.clickToSelectAndEditCell &&
+        this.props.cellEdit.mode !== Const.CELL_EDIT_DBCLICK) {
+      const selected = this.props.selectedRowKeys.indexOf(
+        this.props.data[rowIndex][this.props.keyField]) !== -1;
+      this.handleSelectRow(rowIndex + 1, !selected, e);
     }
     this.setState(stateObj);
   }
 
-  cancelEdit(){
-    var currEditCell=this.state.currEditCell;
-    if(currEditCell){
-      this.handleCompleteEditCell(null,currEditCell.rid,currEditCell.cid);
-    }
-  }
-
-  handleCompleteEditCell(newVal, rowIndex, columnIndex){
-    this.setState({currEditCell: null});
-    if(null != newVal)
+  handleCompleteEditCell = (newVal, rowIndex, columnIndex) => {
+    this.setState({ currEditCell: null });
+    if (newVal !== null) {
       this.props.cellEdit.__onCompleteEdit__(newVal, rowIndex, columnIndex);
-  }
-
-  renderSelectRowColumn(selected){
-    if(this.props.selectRow.mode == Const.ROW_SELECT_SINGLE) {
-      return (<TableColumn><input type="radio" name="selection" checked={selected} onChange={this.handleSelectRowColumChange.bind(this)}/></TableColumn>);
-    }else {
-      return (<TableColumn ><input type="checkbox" checked={selected} onChange={this.handleSelectRowColumChange.bind(this)}/></TableColumn>);
     }
   }
 
-  getBodyHeaderDomProp(){
-    var headers = this.refs.header.childNodes[0].childNodes;
-    var headerDomProps = [];
-    for(let i=0;i<headers.length;i++){
-      headerDomProps.push({
-        width:headers[i].offsetWidth
-      });
-    }
-    return headerDomProps;
-  }
-
-  adjustBody() {
-    this.hardFixHeaderWidth();
-    if(this.props.condensed) {
-      this.refs.body.style.marginTop = "-36px";
-    }
-
-    if(this.props.maxHeight &&
-      parseInt(this.props.maxHeight) < this.refs.container.offsetHeight) {
-      this.refs.container.style.height = (this.props.maxHeight - 42) + "px";
+  renderSelectRowColumn(selected) {
+    if (this.props.selectRow.mode === Const.ROW_SELECT_SINGLE) {
+      return (
+        <TableColumn dataAlign='center'>
+          <input type='radio' checked={ selected }
+            onChange={ this.handleSelectRowColumChange }/>
+        </TableColumn>
+      );
+    } else {
+      return (
+        <TableColumn dataAlign='center'>
+          <input type='checkbox' checked={ selected }
+          onChange={ this.handleSelectRowColumChange }/>
+        </TableColumn>
+      );
     }
   }
 
-  hardFixHeaderWidth(){
-    var headers = this.refs.header.childNodes[0].childNodes;
-    for(let i=0;i<headers.length;i++){
-      headers[i].style.width = headers[i].offsetWidth + "px";
-    }
-  }
-
-  calculateContainerHeight(){
-    if(this.props.height == "100%") return this.props.height;
-    else{
-      return parseInt(this.props.height) - 42;
-    }
-  }
-
-  _isSelectRowDefined(){
+  _isSelectRowDefined() {
     return this.props.selectRow.mode === Const.ROW_SELECT_SINGLE ||
           this.props.selectRow.mode === Const.ROW_SELECT_MULTI;
   }
 }
 TableBody.propTypes = {
-  height: React.PropTypes.string,
-  data: React.PropTypes.array,
-  columns: React.PropTypes.array,
-  striped: React.PropTypes.bool,
-  bordered: React.PropTypes.bool,
-  hover: React.PropTypes.bool,
-  condensed: React.PropTypes.bool,
-  keyField: React.PropTypes.string,
-  selectedRowKeys: React.PropTypes.array,
-  onRowClick: React.PropTypes.func,
-  onSelectRow: React.PropTypes.func,
-  noDataText: React.PropTypes.string
+  data: PropTypes.array,
+  columns: PropTypes.array,
+  striped: PropTypes.bool,
+  bordered: PropTypes.bool,
+  hover: PropTypes.bool,
+  condensed: PropTypes.bool,
+  keyField: PropTypes.string,
+  selectedRowKeys: PropTypes.array,
+  onRowClick: PropTypes.func,
+  onSelectRow: PropTypes.func,
+  noDataText: PropTypes.oneOfType([ PropTypes.string, PropTypes.object ]),
+  style: PropTypes.object,
+  tableBodyClass: PropTypes.string
 };
 export default TableBody;
