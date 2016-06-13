@@ -17,3 +17,5 @@ export HelpTips from './HelpTips';
 export Gallery from './Gallery';
 export ImgUpload from './ImgUpload';
 export Util from './Util';
+export Chart from './Chart';
+export DateFilter from './DateFilter';

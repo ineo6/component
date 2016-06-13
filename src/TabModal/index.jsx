@@ -6,20 +6,20 @@ import Icon from 'react-fa';
 import Modal from 'react-modal';
 import './style.css';
 
-import { Tabs } from 'antd';
+import {Tabs} from 'antd';
 const TabPane = Tabs.TabPane;
 
 const customStyles = {
     content: {
         top: '50%',
         left: '50%',
-        right:'auto',
-        bottom:'auto',
+        right: 'auto',
+        bottom: 'auto',
         border: 'none',
         outline: 'none',
         padding: '0px',
-        minWidth:'700px',
-        transform:'translate(-50%,-50%)',
+        minWidth: '700px',
+        transform: 'translate(-50%,-50%)',
     }
 };
 
@@ -30,52 +30,55 @@ let PanelModal = React.createClass({
         else
             return customStyles
     },
-    getDefaultProps: function() {
-       return {
-          tabs: []
-       };
+    getDefaultProps: function () {
+        return {
+            tabs: []
+        };
     },
 
     onTabChangeHandler(key) {
 
-      this.props.onTabChange && this.props.onTabChange(key);
+        this.props.onTabChange && this.props.onTabChange(key);
 
 
     },
 
 
     renderTabs(tabs){
-      if(!tabs || !_.isArray(tabs) || tabs.length == 0) {
-         return null;
-      }
+        if (!tabs || !_.isArray(tabs) || tabs.length == 0) {
+            return null;
+        }
 
-      const tabEles = [];
+        const tabEles = [];
 
-      tabs.forEach((val,index) => tabEles.push(<TabPane tab={val.title} key={ 'tab' + index }>{val.content || ''}</TabPane>));
+        tabs.forEach((val, index) => tabEles.push(
+            <TabPane tab={val.title} key={ 'tab' + index }
+                     disabled={val.disabled?true:false}>{val.content || ''}</TabPane>
+        ));
 
-      const result = (
-         <Tabs onChange={this.onTabChangeHandler} type="card">
-          {tabEles}
-         </Tabs>
-      );
+        const result = (
+            <Tabs onChange={this.onTabChangeHandler} type="card">
+                {tabEles}
+            </Tabs>
+        );
 
 
-      return result;
+        return result;
     },
     renderChildren(isNeed){
 
-      let result = '';
+        let result = '';
 
-      if(isNeed) {
-         result = this.props.children;
-      }
+        if (isNeed) {
+            result = this.props.children;
+        }
 
-      return result;
+        return result;
 
     },
     render(){
 
-      const { tabs } = this.props;
+        const {tabs} = this.props;
         return (
             <Modal
                 isOpen={this.props.isOpen}
@@ -84,10 +87,10 @@ let PanelModal = React.createClass({
                 <div className="tab-modal">
                     <div className="tab-cm-modal-content">
                         <div className="card-container">
-                           <a onClick={this.props.closeModal} className="tab-modal-close">
-                              <Icon name="times"/>
-                           </a>
-                           {  this.renderTabs(tabs) }
+                            <a onClick={this.props.closeModal} className="tab-modal-close">
+                                <Icon name="times"/>
+                            </a>
+                            {  this.renderTabs(tabs) }
                         </div>
                         <div className="tab-cm-modal-body" id={this.props.id}>
                             {this.renderChildren(!tabs || !_.isArray(tabs) || tabs.length == 0)}

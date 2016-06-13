@@ -5,9 +5,22 @@
 .com-image-list-item {
     float: left;
     position: relative;
+    padding: 1px;
+    margin: 1px;
+    border: 1px solid #eee;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    border-radius: 5px;
+}
+
+.com-image-list-item.preview {
     padding: 8px;
-    border: 1px solid #d9d9d9;
-    border-radius: 6px;
+}
+
+.com-image-list-item a img {
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    border-radius: 5px;
 }
 
 .com-image-list-item .com-image-del {
@@ -22,12 +35,21 @@
     left: 0;
     overflow: hidden;
     z-index: 300;
-    margin: 8px;
+    margin: 1px;
     right: 0px;
+    -webkit-border-radius: 5px 5px 0 0;
+    -moz-border-radius: 5px 5px 0 0;
+    border-radius: 5px 5px 0 0;
+    -webkit-transition: height 0.4s ease;
+    -moz-transition: height 0.4s ease;
+    -ms-transition: height 0.4s ease;
+    -o-transition: height 0.4s ease;
+    transition: height 0.4s ease;
 }
 
 .com-image-list-item:hover .com-image-del {
-    height: auto;
+    height: 28px;
+    line-height: 28px;
 }
 
 .com-image-del span {

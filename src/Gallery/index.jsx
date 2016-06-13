@@ -5,6 +5,7 @@ import React from 'react';
 import Lightbox from './Lightbox.js';
 import './styles/style.css';
 import Icon from 'react-fa';
+import classnames from "classnames";
 
 var Gallery = React.createClass({
     displayName: 'Gallery',
@@ -14,11 +15,13 @@ var Gallery = React.createClass({
         subheading: React.PropTypes.string,
         sepia: React.PropTypes.bool,
         thumbnailStyle: React.PropTypes.object,
+        preview: React.PropTypes.bool
     },
     getInitialState () {
         return {
             lightboxIsOpen: false,
             currentImage: 0,
+            preview: false
         };
     },
     openLightbox (index, event) {
@@ -50,21 +53,26 @@ var Gallery = React.createClass({
     renderGallery () {
         if (!this.props.images) return;
 
-        const { thumbnailStyle } = this.props
+        const {thumbnailStyle, preview} = this.props
 
         styles.thumbnail.width = thumbnailStyle.width || styles.thumbnail.width;
         styles.thumbnail.height = thumbnailStyle.height;
 
+        const cls = classnames({
+            "com-image-list-item": true,
+            'preview': preview ? true : false
+        });
 
         let gallery = this.props.images.map((obj, i) => {
             return (
-                <li key={i} className="com-image-list-item">
+                <li key={i} className={cls}>
                     <a href={obj.src} onClick={(event) => this.openLightbox(i, event)}
                        style={Object.assign({}, styles.thumbnail, this.props.thumbnailStyle)}>
-                        <img src={obj.src} />
+                        <img src={obj.src}/>
                     </a>
                     {this.props.onImageRemove ?
-                        <div className="com-image-del"><span onClick={this.handleDelete.bind(this,obj)}><Icon name="times"/></span>
+                        <div className="com-image-del"><span onClick={this.handleDelete.bind(this,obj)}><Icon
+                            name="times"/></span>
                         </div> : null}
                 </li>
             );
@@ -80,7 +88,7 @@ var Gallery = React.createClass({
     },
     render () {
         return (
-            <div className="section">
+            <div className="section" style={{marginBottom:"15px"}}>
                 {this.props.heading && <h2>{this.props.heading}</h2>}
                 {this.props.subheading && <p>{this.props.subheading}</p>}
                 {this.renderGallery()}
@@ -93,7 +101,7 @@ var Gallery = React.createClass({
                     onClose={this.closeLightbox}
                     styles={this.props.styles}
                     width={1200}
-                    />
+                />
             </div>
         );
     }

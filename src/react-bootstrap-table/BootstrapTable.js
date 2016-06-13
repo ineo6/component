@@ -167,7 +167,7 @@ class BootstrapTable extends Component {
 
       // #125
       if (!options.page &&
-        page >= Math.ceil(nextProps.data.length / sizePerPage)) {
+        page > Math.ceil(nextProps.data.length / sizePerPage)) {
         page = 1;
       }
       const sortInfo = this.store.getSortInfo();
