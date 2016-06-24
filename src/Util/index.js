@@ -62,8 +62,11 @@ export default {
         return addUnit(value, ["单元"]);
     },
 
-    formatAddress(address, building, floor, unit, room){
-        return getValue(address) + this.getBuilding(building) + (floor ? floor + "楼" : "") + this.getUnitNo(unit) + getValue(room)
+    formatAddress(address, building, floor, unit, room, split){
+        if (split && split == true)
+            return getValue(address) + "<br/>" + this.getBuilding(building) + (floor ? floor + "楼" : "") + this.getUnitNo(unit) + getValue(room);
+        else
+            return getValue(address) + this.getBuilding(building) + (floor ? floor + "楼" : "") + this.getUnitNo(unit) + getValue(room);
     },
 
     splitDate(date){
@@ -107,6 +110,21 @@ export default {
         }
 
         return params;
+    },
+
+    convertDateFormat(date, fmtA, fmtB, empty) {
+        let result = "";
+        if(date){
+            if(fmtA&&fmtB){
+                result = moment(date,fmtA).format(fmtB);
+                return result == "Invalid date"? empty||"" :result;
+            }else{
+                result = moment(date,"YYYYMMDDHHmmss").format("YYYY-MM-DD HH:mm:ss");
+                return result == "Invalid date"? empty||"" :result;
+            }
+        }else{
+            return empty||"";
+        }
     }
 
 }
