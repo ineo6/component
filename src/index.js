@@ -5,7 +5,7 @@ export TabModal from './TabModal';
 export BtnListPanelFactory from './BtnListPanelFactory';
 export BtnListPanelFactoryNew from './BtnListPanelFactoryNew';
 export FunctionButtons from './FunctionButtons';
-export FunctionButtons from './FunctionButtonsNew';
+export FunctionButtonsNew from './FunctionButtonsNew';
 export Droppie from './react-upload/react-upload';
 export Message from './Message/Message';
 export PanelModal from './PanelModal/PanelModal';
