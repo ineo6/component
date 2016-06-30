@@ -3,6 +3,7 @@
  */
 
 import React from 'react';
+import {hashHistory} from 'react-router';
 import moment from 'moment';
 import config from '../config';
 
@@ -110,6 +111,17 @@ export default {
         }
 
         return params;
+    },
+
+    push(path, query){
+        let url = path;
+        if (query)
+            url = {
+                pathname: path,
+                query: query
+            }
+
+        hashHistory.push(url);
     },
 
     convertDateFormat(date, fmtA, fmtB, empty) {

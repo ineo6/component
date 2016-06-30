@@ -12,7 +12,7 @@ const Option = Select.Option;
 import './style.css';
 
 
-let FunctionButtons = React.createClass({
+let FunctionButtonsNew = React.createClass({
     contextTypes: {
         router: React.PropTypes.object.isRequired
     },
@@ -151,4 +151,4 @@ let ModuleSelect = React.createClass({
     }
 });
 
-export default FunctionButtons;
+export default FunctionButtonsNew;

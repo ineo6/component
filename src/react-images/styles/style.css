@@ -1,0 +1,39 @@
+.image-list-group {
+    overflow: hidden;
+}
+
+.image-list-item {
+    float: left;
+    margin: 5px;
+    position: relative;
+}
+
+.image-list-item .image-del {
+    position: absolute;
+    height: 0;
+    color: #fff;
+    text-align: right;
+    filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0, startColorstr='#80000000', endColorstr='#80000000') \0;
+    background: rgba(0, 0, 0, 0.5);
+    width: 100%;
+    top: 0;
+    left: 0;
+    overflow: hidden;
+    z-index: 300;
+}
+
+.image-list-item a > img {
+    width: 120px;
+    height: 120px;
+    max-width: 120px;
+    max-height: 120px;
+}
+
+.image-list-item:hover .image-del {
+    height: auto;
+}
+
+.image-del span {
+    margin: 0 5px 1px;
+    cursor: pointer;
+}

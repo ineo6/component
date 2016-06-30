@@ -2,7 +2,7 @@
 
 import React from 'react';
 
-import FunctionButtons from '../FunctionButtons/';
+import FunctionButtonsNew from '../FunctionButtonsNew/';
 
 import './index.css';
 
@@ -19,7 +19,7 @@ const create = (options) => React.createClass({
     render: function () {
         return (
             <div className="panel-box">
-                <FunctionButtons multi={options.multi}
+                <FunctionButtonsNew multi={options.multi}
                                  functions={ options.btnList }
                 />
                 <div className="panel-box-body">

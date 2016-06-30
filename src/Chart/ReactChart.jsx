@@ -42,7 +42,9 @@ export default
     }
 
     constructor(props) {
-      super(props)
+      super(props);
+      this.onResize = this.onResize.bind(this);
+
    }
 
    onResize(){
@@ -51,7 +53,7 @@ export default
 
    componentDidMount() {
 
-      window.addEventListener("resize", this.onResize.bind(this), false)
+      window.addEventListener("resize", this.onResize, false)
 
       const { onReady } = this.props
 
@@ -70,7 +72,7 @@ export default
    }
 
    componentWillUnmount() {
-      window.removeEventListener("resize", this.onResize.bind(this), false);
+      window.removeEventListener("resize", this.onResize, false);
       this.chart.dispose();
    }
 
@@ -84,6 +86,10 @@ export default
    }
 
    drawChart() {
+
+    if(!this.refs || !this.refs.chart) {
+      return;
+    }
 
     const node = this.refs.chart;
     const options = this.filterMap([
