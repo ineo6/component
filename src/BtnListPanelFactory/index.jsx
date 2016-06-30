@@ -2,6 +2,8 @@
 
 import React from 'react';
 
+import {RouteHandler} from 'react-router';
+
 import FunctionButtons from '../FunctionButtons/';
 
 import './index.css';
@@ -23,7 +25,7 @@ const create = (options) => React.createClass({
                                  functions={ options.btnList }
                 />
                 <div className="panel-box-body">
-                    {this.props.children}
+                    <RouteHandler/>
                 </div>
             </div>
         )

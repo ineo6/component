@@ -5,7 +5,7 @@
 'use strict';
 
 import React from 'react';
-import {Link} from 'react-router';
+import {Link, Navigation, State} from 'react-router';
 import {Select} from 'antd';
 const Option = Select.Option;
 
@@ -13,9 +13,6 @@ import './style.css';
 
 
 let FunctionButtons = React.createClass({
-    contextTypes: {
-        router: React.PropTypes.object.isRequired
-    },
     propTypes: {
         multi: React.PropTypes.bool,
         functions: React.PropTypes.array
@@ -25,6 +22,10 @@ let FunctionButtons = React.createClass({
             multi: false
         };
     },
+    mixins: [
+        Navigation,
+        State
+    ],
     getInitialState(){
         let defaultMenu = "";
 
@@ -61,28 +62,6 @@ let FunctionButtons = React.createClass({
 
         return currentMenu;
     },
-    getOthers(btn){
-        let path = "", params, query;
-
-        if (btn.others) {
-            params = btn.others.params;
-            query = btn.others.query;
-        }
-
-        if (params) {
-            for (let key in params) {
-                if (params.hasOwnProperty(key)) {
-                    if (params[key]) {
-                        path = btn.path.replace(key, params[key]);
-                    }
-                }
-            }
-        }
-        else
-            path = btn.path;
-
-        return {path, query};
-    },
     getMenuList(){
         let buttons = this.props.functions;
         if (this.props.multi) {
@@ -90,20 +69,16 @@ let FunctionButtons = React.createClass({
         }
 
         buttons = buttons.map(function (btn, index) {
-            let {path, query}=this.getOthers(btn);
-
-            return <Link
-                activeClassName="active"
-                key={btn.name}
-                className="link-button"
-                to={{pathname:path,query:query}}>{btn.name}</Link>;
-        }.bind(this));
+            return <Link key={btn.name}
+                         className="link-button"
+                         to={btn.func} params={{}} {...btn.others}>{btn.name}</Link>;
+        });
 
         return buttons;
     },
     handleMenuChange(value, option){
         this.setState({menu: value});
-        this.context.router.push(option.extra.path);
+        this.transitionTo(option.extra.func);
     },
     render() {
 
