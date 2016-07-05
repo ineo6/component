@@ -40,8 +40,10 @@ class DateFilter extends Component {
         maxMonth: new Date().getMonth() + 1,
         maxDay: new Date().getDate(),
         disabledAllBtn: false,
-        hasDay: false
+        hasDay: false,
+        hasAll: true,
     }
+
 
     componentWillReceiveProps(nextProps) {
         const {disabledAllBtn} = nextProps;
@@ -52,7 +54,7 @@ class DateFilter extends Component {
 
     render() {
 
-        const {style, hasDay} = this.props;
+        const {style, hasDay, hasAll} = this.props;
 
         const {preDisabled, nextDisabled, disabledAllBtn} = this.state;
 
@@ -74,7 +76,9 @@ class DateFilter extends Component {
                                 type={ monthBtnType }>月</Button>
                         <Button onClick={ this.onYearClick.bind(this) } disabled={ disabledAllBtn }
                                 type={ yearBtnType }>年</Button>
-                        <Button onClick={ this.onAllClick.bind(this) } disabled={ disabledAllBtn } type={ allBtnType }>所有</Button>
+                        {
+                           !!hasAll ? <Button onClick={ this.onAllClick.bind(this) } disabled={ disabledAllBtn } type={ allBtnType }>所有</Button> : null
+                        }
                         <Button onClick={ this.onNextClick.bind(this) }
                                 disabled={ disabledAllBtn || nextDisabled }>{`>>>`}</Button>
                     </ButtonGroup>
